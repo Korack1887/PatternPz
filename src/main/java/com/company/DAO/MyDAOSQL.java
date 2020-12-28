@@ -2,6 +2,8 @@ package com.company.DAO;
 
 import com.company.entities.Clients.Client;
 import com.company.entities.Headphones.Headphones;
+import com.company.entities.Role.Role;
+import com.company.entities.Role.User;
 import com.company.entities.order.Order;
 
 import java.sql.*;
@@ -347,5 +349,49 @@ public class MyDAOSQL implements IMyDAO {
             e.printStackTrace();
         }
         return null;
+    }
+    public void registration(User user){
+        Statement check;
+        int count=0;
+        try {
+            check = con.createStatement();
+            ResultSet res  = check.executeQuery("Select count(*)as count from user where id="+user.getId());
+            res.next();
+            count=res.getInt("count");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            if(count==0) {
+                PreparedStatement statement = con.prepareStatement("INSERT INTO user(id, login, pass, role_id) values(?, ?, ?, ?) ");
+                statement.setInt(1, user.getId());
+                statement.setString(2, user.getLogin());
+                statement.setString(3, user.getPass());
+                statement.setInt(4, user.getRole().ordinal());
+                statement.execute();
+            }
+            else {
+                System.out.println("Пользователь с таким именем уже существует");
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public Role authorise(User user){
+        Statement check;
+        int count=0;
+        try {
+            check = con.createStatement();
+            ResultSet res  = check.executeQuery("Select count(*)as count from user where id="+user.getId());
+            res.next();
+            count=res.getInt("count");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(count>=1){
+            return user.getRole();
+        }
+        System.out.println("Пользователя с такими данными не найдено!");
+        return user.getRole();
     }
 }

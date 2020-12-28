@@ -2,6 +2,8 @@ package com.company.DAO;
 
 import com.company.entities.Clients.Client;
 import com.company.entities.Headphones.Headphones;
+import com.company.entities.Role.Role;
+import com.company.entities.Role.User;
 import com.company.entities.order.Order;
 
 import java.sql.SQLException;
@@ -34,4 +36,7 @@ public interface IMyDAO {
     void updateOrder(Order client) throws SQLException;
     ArrayList<Order> getOrderByClient(Client client) throws SQLException;
     ArrayList<Order> getOrderByHeadphones(Headphones headphones) throws SQLException;
+    ///////////////////////////////////////////////////////////////////////////////////
+    void registration(User user);
+    Role authorise(User user);
 }

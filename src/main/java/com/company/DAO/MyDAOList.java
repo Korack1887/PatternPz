@@ -2,6 +2,8 @@ package com.company.DAO;
 
 import com.company.entities.Clients.Client;
 import com.company.entities.Headphones.Headphones;
+import com.company.entities.Role.Role;
+import com.company.entities.Role.User;
 import com.company.entities.order.Order;
 
 import java.sql.SQLException;
@@ -189,5 +191,15 @@ public class MyDAOList implements IMyDAO {
             }
         }
         return temp;
+    }
+
+    @Override
+    public void registration(User user) {
+
+    }
+
+    @Override
+    public Role authorise(User user) {
+    return Role.USER;
     }
 }

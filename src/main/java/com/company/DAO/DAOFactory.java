@@ -1,11 +1,23 @@
 package com.company.DAO;
 
+import com.company.entities.Role.User;
+
 public class DAOFactory {
     private static IMyDAO dao = null;
+    private static User user=new User();
 
-    public static IMyDAO getDAOInstance(TypeDAO type){
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public IMyDAO getDAOInstance(TypeDAO type){
             if (type == TypeDAO.MySQL) {
-                dao = new MyDAOSQL();
+                dao = new MySQLDAOProxy(user);
             } else if (type == TypeDAO.ListTest) {
                 dao = new MyDAOList();
             }else if (type == TypeDAO.Mongo) {

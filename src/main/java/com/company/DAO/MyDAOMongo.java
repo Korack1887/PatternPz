@@ -4,6 +4,8 @@ import com.company.DAO.autoInc.clientCounter;
 import com.company.DAO.autoInc.orderCounter;
 import com.company.entities.Clients.Client;
 import com.company.entities.Headphones.Headphones;
+import com.company.entities.Role.Role;
+import com.company.entities.Role.User;
 import com.company.entities.order.Order;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
@@ -341,5 +343,15 @@ public class MyDAOMongo implements IMyDAO {
                     .build());
         }
         return result;
+    }
+
+    @Override
+    public void registration(User user) {
+
+    }
+
+    @Override
+    public Role authorise(User user) {
+        return Role.USER;
     }
 }
